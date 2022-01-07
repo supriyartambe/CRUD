@@ -1,0 +1,141 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-primary navbar-right">
+  <div class="col-md-12">
+    <button type="button" class="btn btn-danger float-right " (click)="clickAddPerson()" data-toggle="modal"
+      data-target="#exampleModalCenter">
+      Add Person
+    </button>
+  </div>
+</nav>
+<!-- Button trigger modal -->
+
+
+<hr>
+
+<!-- table -->
+<!-- <div class="container mt-5">
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email Address</th>
+      <th scope="col">Date of Birth</th>
+      <th scope="col">Avtar</th>
+      <th scope="col">Country</th>
+    </tr>
+  </thead>
+  <tbody>
+   <tr *ngFor="let person of personData">
+     <td>{{person.id}}</td>
+     <td>{{person.name}}</td>
+     <td>{{person.email}}</td>
+     <td>{{person.dob }}</td>
+     <td>{{person.avtar}}</td>
+     <td>{{person.country}}</td>
+
+   </tr>
+
+  </tbody>
+</table>
+</div> -->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card col-md-3 float-left" *ngFor="let person of personData">
+        <div class="card-body">
+          <img class="card-img-top" src="{{person.avtar}}" alt="Card image cap">
+          <h5 class="card-title">{{person.name}}</h5>
+          <p class="card-text">{{person.email}}</p>
+          <p class="card-text">{{person.dob | ages}}</p>
+          <p class="card-text">{{person.country}}</p>
+          <button class="btn btn-danger mr-3" type="submit" data-toggle="modal" data-target="#exampleModalCenter"
+            (click)="onUpdate(person)">Edit</button>
+
+
+          <button class="btn btn-primary" type="submit" data-toggle="modal" data-target="#deleteModel"> Delete</button>
+
+          <div class="modal fade" id="deleteModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle"> Delete Person Records</h5>
+                </div>
+                <div class="modal-body">
+                  Delete
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary" (click)="deleteRecord(person)">Save changes</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+
+        <h5 class="modal-title" id="exampleModalLongTitle">Form</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="formAdd">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Name</label>
+            <input type="text" class="form-control" formControlName="name" placeholder="Enter Your Name" required>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" formControlName="email" placeholder="Enter email" required>
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Date Of Birth</label>
+            <input type="date" class="form-control" formControlName="dob" required>
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Avtar</label>
+            <input type="text" class="form-control" formControlName="avtar" placeholder="Add Link" required>
+          </div>
+
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">Country</label>
+            <select class="form-control" formControlName="country" required>
+              <option>India</option>
+              <option>Australia</option>
+              <option>America</option>
+              <option>England</option>
+              <option>Japan</option>
+            </select>
+          </div>
+
+
+          <div class="modal-footer">
+            <button type="submit" *ngIf="showAdd" (click)="createPersonRecord()" class="btn btn-primary">Save
+              changes</button>
+
+            <button type="button" id="close" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+
+            <button type="submit" *ngIf="showUpdate" (click)="updatePersonDetails()" class="btn btn-info"> Update
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
